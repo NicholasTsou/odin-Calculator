@@ -52,12 +52,12 @@ body{
 
 }
 
-.output .first-operand{
+.output #first-operand{
     color: rgba(255, 255, 255, 0.75);
     font-size: 1.5rem;
 }
 
-.output .second-operand{
+.output #second-operand{
     color: white;
     font-size: 2.5rem;
 }
