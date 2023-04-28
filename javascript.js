@@ -12,19 +12,10 @@ let secondNumber = 0;
 let operator = null;
 let finalNumber = null;
 
-console.log(allClear);
-console.log(equalBtn);
-console.log(decimalBtn);
-console.log(deleteBtn);
-console.log(operators);
-console.log(numbers);
-console.log(firstOperand);
-console.log(secondOperand);
+secondOperand.innerText = 0;
 
 
 function showNumber(button){
-    
-    finalNumber = null;
 
     firstNumber = Number(firstNumber + button.innerText);
 
@@ -45,7 +36,7 @@ function deleteAll(){
     secondNumber = 0;
     operator = null;
     finalNumber = null;
-    secondOperand.innerText = null;
+    secondOperand.innerText = 0;
     firstOperand.innerText = null;
 }
 
@@ -57,9 +48,41 @@ function deleteOne(){
 }
 
 function showOperator(button){
-    
+
+    if((operator !== null) && (firstNumber === 0)){
+        firstNumber = 0;
+
+    }else if(operator === null){
+        secondNumber = firstNumber + finalNumber;
+
+        firstNumber = 0;
+        operator = button.innerText;
+        firstOperand.innerText = secondOperand.innerText + " " + button.innerText;
+        secondOperand.innerText = firstNumber;
+    }else{
+
+    }
+
 }
 
+function showEquals(){
+
+    if(operator === null){
+        return firstNumber;
+    }else{
+
+    finalNumber = operate(secondNumber, firstNumber, operator);
+
+    firstNumber = 0;
+    secondNumber = 0;
+    operator = null;
+    secondOperand.innerText = null;
+    firstOperand.innerText = null;
+    secondOperand.innerText = finalNumber;
+
+    }
+
+}
 
 function operate(a, b, operand){
 
@@ -70,6 +93,9 @@ function operate(a, b, operand){
     }else if(operand === "*"){
         return a * b;
     }else if(operand === "÷"){
+        if(b === 0){
+            return secondOperand.innerText = "Error";
+        }
         return a/b;
     }
 }
@@ -89,4 +115,12 @@ allClear.addEventListener("click", () =>{
 
 deleteBtn.addEventListener("click", () =>{
     deleteOne();
+});
+
+operators.forEach(button =>{
+    button.addEventListener('click', () => showOperator(button));
+});
+
+equalBtn.addEventListener("click", () =>{
+    showEquals();
 });
